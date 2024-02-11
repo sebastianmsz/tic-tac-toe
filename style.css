@@ -1,0 +1,119 @@
+/*css reset*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*css reset*/
+
+/*global*/
+:root {
+	--system-ui: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+	font-family: var(--system-ui);
+	box-sizing: border-box;
+	--primary-color: hsla(351, 95%, 71%);
+	--secondary-color: hsla(343, 60%, 20%);
+	--ternary-color: hsla(343, 80%, 8%);
+}
+button{
+	font-family: var(--system-ui);
+	cursor: pointer;
+	-webkit-transition : -webkit-filter 60ms linear
+}
+button:hover{
+	filter: brightness(95%);
+}
+button:active{
+	filter: brightness(85%);
+}
+body{
+	position: relative;
+	min-height: 94.637vh;
+	padding-bottom: 40px;
+	background-color: #fff1f2;
+}
+/*global*/
+/*header*/
+header{
+	display: flex;
+    justify-content: center;
+	padding: 20px min(300px, 8vw);
+	font-size: clamp(2rem, 0.5000rem + 6.6667vw, 4rem);
+	font-weight: 800;
+	align-items: center;
+	box-shadow: 0px 0px 20px 4px;
+    user-select: none;
+	background-color: var(--secondary-color);
+	color: var(--primary-color)
+}
+/*header*/
+
+/*footer*/
+footer{
+	padding: 15px 0;
+	display: flex;
+	justify-content: space-between;
+	font-size: clamp(1rem, 0.6250rem + 1.6667vw, 1.5rem);
+	justify-content:center;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	font-weight: 500;
+	color: var(--ternary-color);
+}
+footer a{
+	margin-left: 4px;
+    color: inherit;
+}
+footer p{
+	text-align: center;
+}
+.fa-github{
+	scale: 1.2;
+    transition: transform 0.3s ease-in-out;
+}
+.fa-github:hover{
+    transform: rotate(360deg) scale(1.2);
+}
+.copy{
+	font-weight: bold;
+}
+/*footer*/
