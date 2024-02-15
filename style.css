@@ -48,26 +48,28 @@ table {
 	--system-ui: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 	font-family: var(--system-ui);
 	box-sizing: border-box;
+	--background-color: hsl(351, 100%, 97%);
 	--primary-color: hsla(351, 95%, 71%);
-	--secondary-color: hsla(343, 60%, 20%);
-	--ternary-color: hsla(343, 80%, 8%);
+	--secondary-color: hsla(351, 60%, 20%);
+	--ternary-color: hsla(351, 80%, 8%);
 }
 button{
 	font-family: var(--system-ui);
 	cursor: pointer;
+	transition: ease-in-out 1s;
 	-webkit-transition : -webkit-filter 60ms linear
 }
 button:hover{
-	filter: brightness(95%);
+	filter: brightness(85%);
 }
 button:active{
-	filter: brightness(85%);
+	filter: brightness(75%);
 }
 body{
 	position: relative;
 	min-height: 94.637vh;
 	padding-bottom: 40px;
-	background-color: #fff1f2;
+	background-color: var(--background-color);
 }
 /*global*/
 /*header*/
@@ -85,12 +87,58 @@ header{
 }
 /*header*/
 
+/*main*/
+main{
+	padding: 80px 0 0 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.game-board{
+	min-width: 450px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	margin: 40px 0;
+	border: solid 4px var(--secondary-color);
+
+}
+.board-position{
+	border: solid 4px var(--primary-color);
+	height: 150px;
+	background-color: var(--background-color);
+	color: hsla(0, 0%, 0%, 0.70);
+}
+main>p{
+	font-size: 2rem;
+	font-weight: 600;
+}
+main>button{
+	background: none;
+	border-radius: 10px;
+	font-weight: bold;
+	font-size: 2rem;
+	background-color: var(--secondary-color);
+	color: var(--primary-color);
+	width: 250px;
+	transition: ease-in-out 100ms;
+}
+main>button:hover{
+	filter: saturate(1.5);
+	transform: scale(1.04);
+}
+.game-board button{
+	font-size: 5rem;
+}
+/*main*/
+
 /*footer*/
 footer{
 	padding: 15px 0;
 	display: flex;
 	justify-content: space-between;
-	font-size: clamp(1rem, 0.6250rem + 1.6667vw, 1.5rem);
+	font-size: clamp(1.2rem, 0.9750rem + 1.0000vw, 1.5rem);
 	justify-content:center;
 	width: 100%;
 	position: absolute;
@@ -98,6 +146,7 @@ footer{
 	left: 0;
 	font-weight: 500;
 	color: var(--ternary-color);
+	line-height: 25px;
 }
 footer a{
 	margin-left: 4px;
@@ -117,3 +166,21 @@ footer p{
 	font-weight: bold;
 }
 /*footer*/
+
+/*mobile*/
+@media (max-width:460px) {
+	main{
+		justify-content: space-between;
+	}
+	.game-board{
+		min-width: 300px;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		margin: 60px 0;
+	
+	}
+	.board-position{
+		height: 100px;
+	}
+}
+/*mobile*/

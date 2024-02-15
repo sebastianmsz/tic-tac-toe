@@ -1,9 +1,23 @@
 (function () {
     document.querySelector('#year').textContent = new Date().getFullYear();
 })();
+(function render(){
+    const boardPosition = document.querySelectorAll('.board-position');
+    const resetBtn = document.querySelector('#resetBtn');
 
-(function () {
-    document.getElementById("play").onclick = game;
+    boardPosition.forEach(position => {
+        position.addEventListener('click',()=>{
+            position.textContent = 'O';
+        })
+    });
+    
+    resetBtn.addEventListener('click',()=>{
+        boardPosition.forEach(position => {
+            position.textContent = '';
+        });
+    })
+})()
+(function game() {
     let gameBoard = ['', '', '', '', '', '', '', '', ''];
     let printGameBoard = ()=> console.log(`${gameBoard.slice(0,3)}\n${gameBoard.slice(3,6)}\n${gameBoard.slice(6,9)}`);
     let currentPlayer = true;
@@ -28,7 +42,6 @@
         }
         return false;
     }
-
     function playRound() {
         do {
             printGameBoard();
