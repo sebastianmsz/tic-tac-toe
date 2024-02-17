@@ -1,26 +1,11 @@
-(function () {
+(function updateYear() {
     document.querySelector('#year').textContent = new Date().getFullYear();
 })();
-(function render(){
-    const boardPosition = document.querySelectorAll('.board-position');
-    const resetBtn = document.querySelector('#resetBtn');
 
-    boardPosition.forEach(position => {
-        position.addEventListener('click',()=>{
-            position.textContent = 'O';
-        })
-    });
-    
-    resetBtn.addEventListener('click',()=>{
-        boardPosition.forEach(position => {
-            position.textContent = '';
-        });
-    })
-})()
 (function game() {
     let gameBoard = ['', '', '', '', '', '', '', '', ''];
-    let printGameBoard = ()=> console.log(`${gameBoard.slice(0,3)}\n${gameBoard.slice(3,6)}\n${gameBoard.slice(6,9)}`);
     let currentPlayer = true;
+    let userFeedback = `It's ${currentPlayer ? 'X' : 'O'}'s turn`;
     
     function checkForWinner() {
         const winningConditions = [
@@ -42,33 +27,60 @@
         }
         return false;
     }
-    function playRound() {
-        do {
-            printGameBoard();
-            const move = prompt(`Player ${currentPlayer ? "X" : "O"}, enter your move (1-9):`);
-            const position = parseInt(move, 10) - 1;
-            if (position >= 0 && position < 9 && gameBoard[position] === '') {
-                gameBoard[position] = currentPlayer ? "X" : "O";
+
+    function playerMoveFactory(player) {
+        return function(position) {
+            if (gameBoard[position] === '') {
+                gameBoard[position] = player;
                 currentPlayer = !currentPlayer;
-                break;
-            } else {
-                console.error('Invalid move. Try again.');
             }
-        } while (true);
+        }
     }
 
-    function game(){
-        while (!checkForWinner() && gameBoard.includes('')){
-            playRound();
+    const playerXMove = playerMoveFactory('X');
+    const playerOMove = playerMoveFactory('O');
+
+    function playRound(position){
+        if (!checkForWinner() && gameBoard.includes('')){
+            userFeedback = `It's ${!currentPlayer ? 'X' : 'O'}'s turn`;
+            currentPlayer ? playerXMove(position) : playerOMove(position);
         }
-        if (!checkForWinner()) {
-            printGameBoard();
-            console.log(`Its a tie!`);
-            gameBoard = ['', '', '', '', '', '', '', '', '']; 
-        } else {
-            printGameBoard();
-            console.log(`Player ${!currentPlayer ? "X" : "O"} wins!`);
-            gameBoard = ['', '', '', '', '', '', '', '', ''];
+        if (!checkForWinner() && !gameBoard.includes('')) {
+            userFeedback = `It's a tie! 🟰`;
+        }
+        if (checkForWinner()){
+            userFeedback = `Player ${!currentPlayer ? 'X' : 'O'} wins! 🥳`;
         }        
     }
-})();
+
+    function resetGame(){
+        gameBoard = ['', '', '', '', '', '', '', '', ''];
+        currentPlayer = true;
+        userFeedback = `It's ${currentPlayer ? 'X' : 'O'}'s turn`;
+    }
+
+    (function render(){
+        const boardPosition = document.querySelectorAll('.board-position');
+        const resetBtn = document.querySelector('#resetBtn');
+
+        function renderUi (){
+            const userFeedbackUi = document.querySelector('#userMessage');
+            userFeedbackUi.textContent = userFeedback;
+            for (let i = 0; i < 9; i++) {
+                boardPosition[i].textContent = gameBoard[i];
+            }
+        }
+
+        resetBtn.addEventListener('click',()=>{
+            resetGame();
+            renderUi();
+        })
+    
+        for (let i = 0; i < 9; i++) {
+            boardPosition[i].addEventListener('click', ()=>{
+                playRound(i);
+                renderUi();
+            })
+        }
+    })()
+})()
